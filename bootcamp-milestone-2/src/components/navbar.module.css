@@ -1,0 +1,62 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+    flex-wrap: wrap;
+  
+    background: linear-gradient(180deg, var(--cg-black-2), var(--cg-black));
+    border-bottom: 1px solid var(--cg-grey);
+    backdrop-filter: saturate(120%) blur(6px);
+  
+    color: var(--cg-white);
+  }
+  
+  .logo {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    color: var(--accent-yellow);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    margin: 0; 
+  }
+  
+  .logo:hover {
+    color: var(--accent-yellow-2);
+  }
+  
+  .navLinks {
+    margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    row-gap: 8px;
+    justify-content: flex-end;
+    flex: 1 1 auto;
+  }
+  
+  .navLinks a {
+    display: block;
+    padding: 4px 6px;
+    color: var(--accent-pink);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: color 120ms ease;
+  }
+  
+  .navLinks a:hover {
+    color: var(--accent-pink-2);
+    text-decoration: none;
+  }
+  
+  @media (max-width: 760px) {
+    .navLinks { width: 100%; justify-content: space-between; }
+    .navLinks a { font-size: 0.95rem; letter-spacing: 0.8px; }
+  }
+  

@@ -1,15 +1,22 @@
-import blogs, { type Blog } from "./blogData";
-
-export default function Home() {
+export default function HomePage() {
   return (
-		<div>
-      {blogs.map((b) => (
-        <article key={b.slug}>
-          <h2>{b.title}</h2>
-          <p>{b.date}</p>
-          <p>{b.description}</p>
-        </article>
-      ))}
-    </div>
-		) 
+    <main>
+      <h1 className="page-title">home</h1>
+
+      <div className="about">
+        <div className="about-image">
+          <img src="/images/headshot.png" alt="Headshot of Nithyasri" />
+        </div>
+
+        <div className="about-text">
+          <p>
+            I'm <strong>Nithyasri Palanisamy</strong>, a second-year Computer Science student at
+            <strong> Cal Poly</strong> interested in <em>machine learning</em> and
+            <em> artificial intelligence</em>. I love building creative tech projects,
+            listening to music, and playing the electric guitar.
+          </p>
+        </div>
+      </div>
+    </main>
+  );
 }
