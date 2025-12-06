@@ -22,9 +22,9 @@ import Blog from "@/database/blogSchema"
    /api/blog/[slug]/route.ts creates { params: { slug: "actual-slug-value" } }
 */
 type IParams = {
-		params: {
+		params: Promise<{
 			slug: string
-		}
+		}>
 }
 
 /*
@@ -43,7 +43,7 @@ export async function GET(req: NextRequest, { params }: IParams) {
 		// If { params } looks confusing, check the note below this code block
 		
     await connectDB() // function from db.ts before
-		const { slug } = params // another destructure
+		const { slug } = await params // another destructure
 
 	   try {
 	        const blog = await Blog.findOne({ slug }).orFail()
