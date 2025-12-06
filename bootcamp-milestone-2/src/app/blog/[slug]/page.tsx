@@ -1,5 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import Comment, { type IComment } from "@/components/Comment";
+
+type Blog = {
+  title: string;
+  date: Date | string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  slug: string;
+  content: string;
+  comments?: IComment[];
+};
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -55,6 +67,16 @@ export default async function Blog({ params }: Props) {
         <div>
           <p>{blog.content}</p>
         </div>
+
+        {/* Comments Section */}
+        {blog.comments && blog.comments.length > 0 && (
+          <div className="comments-section">
+            <h2>Comments</h2>
+            {blog.comments.map((comment: IComment, index: number) => (
+              <Comment key={index} comment={comment} />
+            ))}
+          </div>
+        )}
 
         <p>
           <Link href="/blog">← Back to Blog</Link>

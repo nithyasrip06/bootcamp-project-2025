@@ -366,3 +366,54 @@
   ::selection { background: var(--accent-pink); color: var(--cg-black); }
   hr { border: none; border-top: 1px solid var(--cg-grey); margin: 14px 0; }
   
+  /* COMMENTS */
+  .comments-section {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--cg-grey);
+  }
+  
+  .comments-section h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--accent-yellow);
+    font-size: 28px;
+    margin: 0 0 20px;
+    text-transform: lowercase;
+  }
+  
+  .comment {
+    background: var(--cg-black-2);
+    border: 1px solid var(--cg-grey);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+  
+  .comment:hover {
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 0 2px var(--ring);
+  }
+  
+  .comment-user {
+    color: var(--accent-yellow);
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    letter-spacing: 0.5px;
+  }
+  
+  .comment-text {
+    color: var(--accent-pink);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 12px;
+  }
+  
+  .comment-time {
+    color: var(--cg-white);
+    font-size: 14px;
+    opacity: 0.8;
+    font-style: italic;
+  }
+  
