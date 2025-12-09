@@ -3,7 +3,7 @@ import Link from "next/link";
 import Comment, { type IComment } from "@/components/Comment";
 import CommentForm from "@/components/CommentForm";
 
-type Blog = {
+type BlogType = {
   title: string;
   date: Date | string;
   description: string;
@@ -20,8 +20,13 @@ type Props = {
 
 async function getBlog(slug: string) {
   try {
+    // Construct the base URL dynamically for both localhost and production
+    const baseUrl = process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}`
+      : 'http://localhost:3000';
+    
     // This fetches the blog from an api endpoint that would GET the blog
-    const res = await fetch(`http://localhost:3000/api/Blogs/${slug}`, {
+    const res = await fetch(`${baseUrl}/api/Blogs/${slug}`, {
       cache: "no-store",
     });
 
