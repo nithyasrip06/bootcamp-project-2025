@@ -3,6 +3,9 @@ import Project from "@/database/projectSchema";
 import Comment, { type IComment } from "@/components/Comment";
 import CommentForm from "@/components/CommentForm";
 
+// Force dynamic rendering to prevent build-time database connection
+export const dynamic = 'force-dynamic';
+
 async function getProjects() {
   await connectDB(); // function from db.ts
 
