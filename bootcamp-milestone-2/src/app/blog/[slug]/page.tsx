@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { headers } from "next/headers";
 import Comment, { type IComment } from "@/components/Comment";
 import CommentForm from "@/components/CommentForm";
 
@@ -18,26 +19,51 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+async function getBaseUrl() {
+  // Try to get the URL from request headers first (most reliable)
+  const headersList = await headers();
+  const host = headersList.get('host');
+  const protocol = headersList.get('x-forwarded-proto') || 'http';
+  
+  if (host) {
+    return `${protocol}://${host}`;
+  }
+  
+  // Fallback to Vercel URL environment variable
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  
+  // Fallback to custom NEXT_PUBLIC_BASE_URL if set
+  if (process.env.NEXT_PUBLIC_BASE_URL) {
+    return process.env.NEXT_PUBLIC_BASE_URL;
+  }
+  
+  // Last resort: localhost for development
+  return 'http://localhost:3000';
+}
+
 async function getBlog(slug: string) {
   try {
-    // Construct the base URL dynamically for both localhost and production
-    const baseUrl = process.env.VERCEL_URL 
-      ? `https://${process.env.VERCEL_URL}`
-      : 'http://localhost:3000';
+    const baseUrl = await getBaseUrl();
+    const url = `${baseUrl}/api/Blogs/${slug}`;
+    
+    console.log(`Fetching blog from: ${url}`); // Debug log
     
     // This fetches the blog from an api endpoint that would GET the blog
-    const res = await fetch(`${baseUrl}/api/Blogs/${slug}`, {
+    const res = await fetch(url, {
       cache: "no-store",
     });
 
     // This checks that the GET request was successful
     if (!res.ok) {
-      throw new Error("Failed to fetch blog");
+      console.error(`Failed to fetch blog: ${res.status} ${res.statusText}`);
+      throw new Error(`Failed to fetch blog: ${res.status} ${res.statusText}`);
     }
 
     return res.json();
   } catch (err: unknown) {
-    console.log(`error: ${err}`);
+    console.error(`Error fetching blog: ${err}`);
     return null;
     // `` are a special way of allowing JS inside a string
     // Instead of "error: " + err, we can just do the above
