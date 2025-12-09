@@ -425,3 +425,26 @@
     font-style: italic;
   }
   
+  /* FORM MESSAGES */
+  .error-message {
+    color: #ff6b6b;
+    font-size: 14px;
+    margin-top: 4px;
+    display: block;
+  }
+  
+  .success-message {
+    color: var(--accent-yellow);
+    font-size: 16px;
+    margin: 12px 0;
+    padding: 12px;
+    background: var(--cg-black-2);
+    border: 1px solid var(--accent-yellow);
+    border-radius: 8px;
+  }
+  
+  form input[aria-invalid="true"],
+  form textarea[aria-invalid="true"] {
+    border-color: #ff6b6b;
+  }
+  
