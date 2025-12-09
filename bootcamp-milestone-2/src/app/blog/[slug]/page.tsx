@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Comment, { type IComment } from "@/components/Comment";
+import CommentForm from "@/components/CommentForm";
 
 type Blog = {
   title: string;
@@ -69,14 +70,19 @@ export default async function Blog({ params }: Props) {
         </div>
 
         {/* Comments Section */}
-        {blog.comments && blog.comments.length > 0 && (
-          <div className="comments-section">
-            <h2>Comments</h2>
-            {blog.comments.map((comment: IComment, index: number) => (
+        <div className="comments-section">
+          <h2>Comments</h2>
+          {blog.comments && blog.comments.length > 0 ? (
+            blog.comments.map((comment: IComment, index: number) => (
               <Comment key={index} comment={comment} />
-            ))}
-          </div>
-        )}
+            ))
+          ) : (
+            <p>No comments yet. Be the first to comment!</p>
+          )}
+          
+          {/* Comment Form */}
+          <CommentForm blogSlug={slug} />
+        </div>
 
         <p>
           <Link href="/blog">← Back to Blog</Link>

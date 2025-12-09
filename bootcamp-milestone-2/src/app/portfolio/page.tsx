@@ -1,5 +1,7 @@
 import connectDB from "@/database/db";
 import Project from "@/database/projectSchema";
+import Comment, { type IComment } from "@/components/Comment";
+import CommentForm from "@/components/CommentForm";
 
 async function getProjects() {
   await connectDB(); // function from db.ts
@@ -24,22 +26,39 @@ export default async function PortfolioPage() {
       {projects && projects.length > 0 ? (
         projects.map((project) => (
           <div key={project._id.toString()} className="project">
-            <a href={project.link} className="item-link">
-              <img
-                src={project.image}
-                alt={project.imageAlt}
-                className="project-image"
-                width={400}
-                height={250}
-              />
-            </a>
+            <div className="project-content">
+              <a href={project.link} className="item-link">
+                <img
+                  src={project.image}
+                  alt={project.imageAlt}
+                  className="project-image"
+                  width={400}
+                  height={250}
+                />
+              </a>
 
-            <div className="project-details">
-              <p className="project-name">
-                <strong>{project.name}</strong>
-              </p>
-              <p className="project-description">{project.description}</p>
-              <a href={project.link}>Learn More</a>
+              <div className="project-details">
+                <p className="project-name">
+                  <strong>{project.name}</strong>
+                </p>
+                <p className="project-description">{project.description}</p>
+                <a href={project.link}>Learn More</a>
+              </div>
+            </div>
+
+            {/* Comments Section for each project */}
+            <div className="comments-section">
+              <h3>Comments</h3>
+              {project.comments && project.comments.length > 0 ? (
+                project.comments.map((comment: IComment, index: number) => (
+                  <Comment key={index} comment={comment} />
+                ))
+              ) : (
+                <p>No comments yet. Be the first to comment!</p>
+              )}
+              
+              {/* Comment Form */}
+              <CommentForm projectId={project._id.toString()} />
             </div>
           </div>
         ))
